@@ -1,4 +1,5 @@
 const Movie = require("../models/Movie");
+
 const addMovie = async (req, res) => {
   const { title, description, thumbnail, rate, genre } = req.body;
   try {
@@ -52,6 +53,19 @@ const getAllMovies = async (req, res) => {
   }
 };
 
+const getAllMovieEpisodes = async (req, res) => {
+  const { movieId } = req.params;
+  try {
+    const movie = await Movie.findById(movieId).populate("episodes");
+    if (!movie) {
+      return res.status(404).json({ message: "Movie not found" });
+    }
+    res.json(movie.episodes);
+  } catch (err) {
+    res.status(404).json({ message: "Movie not found" });
+  }
+};
+
 const getEpisodeById = async (req, res) => {
   const { movieId, episodeId } = req.params;
   try {
@@ -74,5 +88,6 @@ module.exports = {
   addEpisode,
   getMovie,
   getAllMovies,
+  getAllMovieEpisodes,
   getEpisodeById,
 };

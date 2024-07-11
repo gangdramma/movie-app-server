@@ -20,6 +20,8 @@ mongoose
     "mongodb+srv://music:971584440@musicserver.izbntx2.mongodb.net/?retryWrites=true&w=majority&appName=musicserver"
   )
   .then(() =>
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+    app.listen(PORT, () =>
+      console.log(`Server running on port http://localhost:${PORT}`)
+    )
   )
   .catch((err) => console.log(err));
