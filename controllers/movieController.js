@@ -1,5 +1,4 @@
 const Movie = require("../models/Movie");
-
 const addMovie = async (req, res) => {
   const { title, description, thumbnail, rate, genre } = req.body;
   try {
@@ -14,19 +13,16 @@ const addMovie = async (req, res) => {
 const addEpisode = async (req, res) => {
   const { id } = req.params;
   const { title, video, description, duration } = req.body;
+
   try {
-    let movie = await Movie.findById(id);
+    const movie = await Movie.findById(id);
     if (!movie) {
       return res.status(404).json({ message: "Movie not found" });
     }
 
-    if (!movie.episodes) {
-      movie.episodes = [];
-    }
-
-    const newEpisode = { title, video, description, duration };
-    movie.episodes.push(newEpisode);
+    movie.episodes.push({ title, video, description, duration });
     await movie.save();
+
     res.status(201).json(movie);
   } catch (err) {
     res.status(400).json({ message: err.message });

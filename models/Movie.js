@@ -29,9 +29,7 @@ const movieSchema = new mongoose.Schema({
     ref: "Genre",
     required: true,
   },
-  episodes: [
-    { type: mongoose.Schema.Types.ObjectId, ref: "Episode" }, // Ensure correct definition of subdocument schema
-  ],
+  episodes: [episodeSchema],
 });
 
 module.exports = mongoose.model("Movie", movieSchema);
