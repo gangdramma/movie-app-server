@@ -15,10 +15,15 @@ const addEpisode = async (req, res) => {
   const { id } = req.params;
   const { title, video, description, duration } = req.body;
   try {
-    const movie = await Movie.findById(id);
+    let movie = await Movie.findById(id);
     if (!movie) {
       return res.status(404).json({ message: "Movie not found" });
     }
+
+    if (!movie.episodes) {
+      movie.episodes = [];
+    }
+
     const newEpisode = { title, video, description, duration };
     movie.episodes.push(newEpisode);
     await movie.save();
