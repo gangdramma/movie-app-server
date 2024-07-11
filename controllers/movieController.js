@@ -19,7 +19,8 @@ const addEpisode = async (req, res) => {
     if (!movie) {
       return res.status(404).json({ message: "Movie not found" });
     }
-    movie.episodes.push({ title, video, description, duration });
+    const newEpisode = { title, video, description, duration };
+    movie.episodes.push(newEpisode);
     await movie.save();
     res.status(201).json(movie);
   } catch (err) {
@@ -32,6 +33,9 @@ const getMovie = async (req, res) => {
     const movie = await Movie.findById(req.params.id)
       .populate("genre")
       .populate("episodes");
+    if (!movie) {
+      return res.status(404).json({ message: "Movie not found" });
+    }
     res.json(movie);
   } catch (err) {
     res.status(404).json({ message: "Movie not found" });
@@ -47,7 +51,7 @@ const getAllMovies = async (req, res) => {
   }
 };
 
-const getEpisode = async (req, res) => {
+const getEpisodeById = async (req, res) => {
   const { movieId, episodeId } = req.params;
   try {
     const movie = await Movie.findById(movieId).populate({
@@ -64,4 +68,10 @@ const getEpisode = async (req, res) => {
   }
 };
 
-module.exports = { addMovie, addEpisode, getMovie, getAllMovies, getEpisode };
+module.exports = {
+  addMovie,
+  addEpisode,
+  getMovie,
+  getAllMovies,
+  getEpisodeById,
+};
