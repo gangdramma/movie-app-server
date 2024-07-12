@@ -21,6 +21,10 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  bgThumbnail: {
+    type: String,
+    required: true,
+  },
   rate: {
     type: Number,
     required: true,
