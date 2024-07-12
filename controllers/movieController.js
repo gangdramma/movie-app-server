@@ -1,4 +1,5 @@
 const Movie = require("../models/Movie");
+const User = require("../models/User"); // Ensure this is imported
 
 const addMovie = async (req, res) => {
   const { title, description, thumbnail, rate, genre } = req.body;
