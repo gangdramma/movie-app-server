@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   gmail: { type: String, required: true, unique: true },
   favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movie" }],
+  genres: [{ type: mongoose.Schema.Types.ObjectId, ref: "Genre" }],
 });
 
 userSchema.pre("save", async function (next) {

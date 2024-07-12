@@ -116,6 +116,39 @@ const getUserFavorites = async (req, res) => {
   }
 };
 
+const addGenresToUser = async (req, res) => {
+  const { userId } = req.params;
+  const { genres } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.genres = genres;
+    await user.save();
+
+    res.status(201).json(user);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+const getUserGenres = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const user = await User.findById(userId).populate("genres");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user.genres);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 module.exports = {
   addMovie,
   addEpisode,
@@ -125,4 +158,6 @@ module.exports = {
   getEpisodeById,
   addFavoriteMovie,
   getUserFavorites,
+  addGenresToUser,
+  getUserGenres,
 };
