@@ -2,9 +2,16 @@ const Movie = require("../models/Movie");
 const User = require("../models/User");
 
 const addMovie = async (req, res) => {
-  const { title, description, thumbnail, rate, genre } = req.body;
+  const { title, description, thumbnail, rate, genre, bgThumbnail } = req.body;
   try {
-    const movie = new Movie({ title, description, thumbnail, rate, genre });
+    const movie = new Movie({
+      title,
+      description,
+      thumbnail,
+      rate,
+      genre,
+      bgThumbnail,
+    });
     await movie.save();
     res.status(201).json(movie);
   } catch (err) {

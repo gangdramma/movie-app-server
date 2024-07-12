@@ -21,10 +21,6 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  bgThumbnail: {
-    type: String,
-    required: true,
-  },
   rate: {
     type: Number,
     required: true,
@@ -37,6 +33,11 @@ const movieSchema = new mongoose.Schema({
     },
   ],
   episodes: [episodeSchema],
+
+  bgThumbnail: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Movie", movieSchema);
