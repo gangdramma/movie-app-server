@@ -1,5 +1,5 @@
 const Movie = require("../models/Movie");
-const User = require("../models/User"); // Ensure this is imported
+const User = require("../models/User");
 
 const addMovie = async (req, res) => {
   const { title, description, thumbnail, rate, genre } = req.body;
@@ -103,6 +103,19 @@ const addFavoriteMovie = async (req, res) => {
   }
 };
 
+const getUserFavorites = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const user = await User.findById(userId).populate("favorites");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user.favorites);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 module.exports = {
   addMovie,
   addEpisode,
@@ -111,4 +124,5 @@ module.exports = {
   getAllMovieEpisodes,
   getEpisodeById,
   addFavoriteMovie,
+  getUserFavorites,
 };

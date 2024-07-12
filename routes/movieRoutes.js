@@ -7,6 +7,7 @@ const {
   getAllMovieEpisodes,
   getEpisodeById,
   addFavoriteMovie,
+  getUserFavorites,
 } = require("../controllers/movieController");
 const router = express.Router();
 
@@ -17,5 +18,6 @@ router.get("/movies", getAllMovies);
 router.get("/movies/:movieId/episodes", getAllMovieEpisodes);
 router.get("/movies/:movieId/episodes/:episodeId", getEpisodeById);
 router.post("/users/:userId/favorites/:movieId", addFavoriteMovie);
+router.get("/users/:userId/favorites", getUserFavorites);
 
 module.exports = router;
