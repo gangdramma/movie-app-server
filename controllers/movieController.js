@@ -83,6 +83,25 @@ const getEpisodeById = async (req, res) => {
   }
 };
 
+const addFavoriteMovie = async (req, res) => {
+  const { userId, movieId } = req.params;
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (!user.favorites.includes(movieId)) {
+      user.favorites.push(movieId);
+      await user.save();
+    }
+
+    res.status(201).json(user);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
 module.exports = {
   addMovie,
   addEpisode,
@@ -90,4 +109,5 @@ module.exports = {
   getAllMovies,
   getAllMovieEpisodes,
   getEpisodeById,
+  addFavoriteMovie,
 };

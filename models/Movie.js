@@ -5,7 +5,7 @@ const episodeSchema = new mongoose.Schema({
   video: String,
   description: String,
   duration: Number,
-  poster: String, // Added poster field
+  poster: String,
 });
 
 const movieSchema = new mongoose.Schema({
@@ -25,11 +25,13 @@ const movieSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  genre: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Genre",
-    required: true,
-  },
+  genre: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Genre",
+      required: true,
+    },
+  ],
   episodes: [episodeSchema],
 });
 
