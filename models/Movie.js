@@ -5,6 +5,7 @@ const episodeSchema = new mongoose.Schema({
   video: String,
   description: String,
   duration: Number,
+  poster: String, // Added poster field
 });
 
 const movieSchema = new mongoose.Schema({

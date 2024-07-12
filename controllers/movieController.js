@@ -13,7 +13,7 @@ const addMovie = async (req, res) => {
 
 const addEpisode = async (req, res) => {
   const { id } = req.params;
-  const { title, video, description, duration } = req.body;
+  const { title, video, description, duration, poster } = req.body;
 
   try {
     const movie = await Movie.findById(id);
@@ -21,7 +21,7 @@ const addEpisode = async (req, res) => {
       return res.status(404).json({ message: "Movie not found" });
     }
 
-    movie.episodes.push({ title, video, description, duration });
+    movie.episodes.push({ title, video, description, duration, poster });
     await movie.save();
 
     res.status(201).json(movie);
